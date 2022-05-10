@@ -1,0 +1,36 @@
+<html><head>
+<title>Esempio inserimento riga nel DataBase</title>
+</head><body>
+<%- deve essere importata il package java.sql.* per eseguire
+le istruzioni SQL -%>
+<%@ page language="java" import="java.sql.*" %>
+
+<%
+int valore = 25; //valore di esempio
+int esito; //esito aggiornamento
+Connection conn = null;
+
+//carica il file di classe del driver per il ponte Odbc
+Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
+
+//crea la connessione con l'origine dati
+conn = DriverManager.getConnection("jdbc:odbc:miodb","","");
+
+//crea lo statement
+Statement st = conn.createStatement();
+
+//esegue l'aggiornameto o l'inserimento
+esito = st.executeUpdate("INSERT INTO tab1 (dati) values ("+valore+")"))
+//se esito � uguale a 1 tutto � andato bene
+if (esito == 1)
+out.println("inserimento eseguito correttamente");
+else
+out.println("inserimento non eseguito");
+
+
+rs.close();
+conn.close();
+
+%>
+</body>
+</html>
